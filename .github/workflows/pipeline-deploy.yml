@@ -23,3 +23,18 @@ jobs:
           cache: maven
       - name: Compile
         run: mvn -B compile --file pom.xml 
+        
+  code-quality:
+    name: Qualidade de código
+    needs: build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Git Checkout
+        uses: action/ckeckout@v3
+      - name: Adiciona permissão mvnw
+        run: chmod +x mvnw
+      - name: Análise Sonar
+        run: ./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=lab-devops-project
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
