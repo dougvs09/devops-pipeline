@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     name: Compile
-    runs-on: ubuntu:latest
+    runs-on: ubuntu-latest
     
     steps:
       - name: Git Checkout
